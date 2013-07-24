@@ -130,7 +130,7 @@ module Irwi::Helpers::WikiPagesHelper
       concat link_to(wt("Attachment_#{attachment.id}"), attachment.wiki_page_attachment.expiring_url(Time.now + 3600))
       concat " | "
       concat link_to(wt('Remove'), wiki_remove_page_attachment_path(attachment.id))
-      concat "<br/>"
+      concat "\\n"
     end
 
     form_for(Irwi.config.page_attachment_class.new,
