@@ -127,9 +127,9 @@ module Irwi::Helpers::WikiPagesHelper
     return unless Irwi::config.page_attachment_class_name
 
     page.attachments.each do |attachment|
-      concat attachment.wiki_page_attachment.expiring_url(Time.now + 3600)
-      concat "Attachment_#{attachment.id}"
-      concat link_to(wt('Remove'), wiki_remove_page_attachment_path(attachment.id), :method => :delete)
+      concat link_to(wt("Attachment_#{attachment.id}"), attachment.wiki_page_attachment.expiring_url(Time.now + 3600))
+      concat " | "
+      concat link_to(wt('Remove'), wiki_remove_page_attachment_path(attachment.id))
     end
 
     form_for(Irwi.config.page_attachment_class.new,

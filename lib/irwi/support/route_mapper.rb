@@ -20,7 +20,7 @@ module Irwi::Support::RouteMapper
 
     # Attachments
     post("#{root}/attach/(*path)", opts.merge({:action => 'add_attachment' }))
-    delete("#{root}/attach/:attachment_id", opts.merge({:action => 'remove_attachment' }))
+    get("#{root}/attach/delete/:attachment_id", opts.merge({:action => 'remove_attachment' }))
 
     delete( "#{root}/(*path)", opts.merge({ :action => 'destroy', :as => 'destroy_wiki_page' }) ) # Wiki destroy route
     post( "#{root}/(*path)", opts.merge({ :action => 'update', :as => 'update_wiki_page' }) ) # Save wiki pages route
