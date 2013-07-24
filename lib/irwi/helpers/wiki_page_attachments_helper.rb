@@ -15,7 +15,7 @@ module Irwi::Helpers::WikiPageAttachmentsHelper
     str.gsub /Attachment_([\d]+)_([\w]+)/ do |m|
       begin
         attachment = Irwi.config.page_attachment_class.find($1)
-        image_tag attachment.wiki_page_attachment.url($2.to_sym), :class => 'wiki_page_attachment'
+        image_tag attachment.wiki_page_attachment.expiring_url(Time.now + 3600, $2.to_sym), :class => 'wiki_page_attachment'
       rescue ActiveRecord::RecordNotFound
         nil
       end
