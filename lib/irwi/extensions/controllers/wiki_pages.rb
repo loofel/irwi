@@ -54,6 +54,8 @@ module Irwi::Extensions::Controllers::WikiPages
     end
 
     def format
+      return not_allowed unless edit_allowed?
+
       render_template 'format'
     end
 
