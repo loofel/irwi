@@ -19,6 +19,10 @@ module Irwi::Helpers::WikiPagesHelper
     wiki_page_path( page, :edit )
   end
 
+  def wiki_page_destroy_path( page = nil )
+    wiki_page_path( page, :destroy )
+  end
+
   def wiki_page_history_path( page = nil )
     wiki_page_path( page, :history )
   end
