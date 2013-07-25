@@ -1,0 +1,48 @@
+<%= wiki_page_style %>
+
+<h1><%=wt 'Markdown Formatting Syntax' %></h1>
+  
+<div class="wiki_content">	
+	<h4>Headers</h4>
+	<p># This is a top-level header</p>
+	<p>## This is a level-2 header</p>
+	<p>### This is a level-3 header</p>
+	
+	<h4>Text Styles</h4>
+	<p>*This text will be italic*</p>
+	<p>**This text will be bold**</p>
+	<p>*You **can** combine them*</p>
+
+	<h4>Lists</h4>
+<p><pre>* Item 1
+* Item 2
+	* Item 2a
+	* Item 2b</pre></p>
+<p><pre>1. Item 1
+2. Item 2
+	* Item 2a
+	* Item 2b</pre></p>
+
+	<h4>Images</h4>
+	<p>Example: ![GitHub Logo](/images/logo.png)</p>
+	<p>Format: ![Description](url)</p>
+
+	<h4>Links</h4>
+	<p>http://eligoenergy.com - automatic!</p>
+	<p>[Eligo Energy](http://eligoenergy.com)</p>
+
+	<h4>Blockquotes</h4>
+	<p>As Kanye West said:<br>
+	&gt; We're living the future so<br>
+	&gt; the present is our past.</p>
+
+  <% if is_admin? %>
+  	<h3>Pages</h3>
+  	<p>To create a page, simply go to whichever URL you want to create and click the "create it" link. If you want to restrict access to a certain role, just start the page's url with that role. For example, to create a "Getting Started" guide that only brokers can see, you could use <code>https://help.eligoenergy.com/broker/getting_started</code>.</p>
+  	<p>Non-admin users can only see pages that are in the <code>general</code> directory or in the directories that correspond to their privileges. For example, a user that is part of a Broker organization can access pages within the <code>general</code>, <code>user</code>, and <code>broker</code> directories.</p>
+
+  	<h3>Attachments</h3>
+  	<p>To include an attachment in a post, upload the attachment and then type <code>Attachment_#_Title</code> in the content area to include it with title <code>Title</code>. For example, to include a .pdf file with the title "July Report", you would upload the file, look for its attachment number, and then type <code>Attachment_10_July_Report</code>. This will be turned into a link that says "July Report" and points to the file.</p>
+  <% end %>
+</div>
+	
