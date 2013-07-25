@@ -12,7 +12,7 @@ In addition, this version includes formatting instructions for Markdown by defau
 
 Add to your Gemfile:
 
-  gem 'irwi', :git => 'git://github.com/alno/irwi.git'
+  gem 'irwi', :git => 'git://github.com/neilgupta/irwi.git'
 
 Then in your application directory call:
 
