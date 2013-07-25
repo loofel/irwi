@@ -137,6 +137,8 @@ module Irwi::Helpers::WikiPagesHelper
       concat tag("br", nil, true)
     end
 
+    concat tag("br", nil, true)
+
     form_for(Irwi.config.page_attachment_class.new,
              :as => :wiki_page_attachment,
              :url => wiki_add_page_attachment_path(page),
