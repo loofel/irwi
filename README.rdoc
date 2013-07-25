@@ -2,9 +2,11 @@
 
 Irwi is a Ruby on Rails 3 plugin which adds wiki functionality to your application.
 
-== Status
+== Summary of modifications in this fork
 
-{<img src="https://secure.travis-ci.org/alno/irwi.png?branch=master" alt="Build Status" />}[http://travis-ci.org/alno/irwi]
+This gem has been modified from its forked version to support generic file attachments, rather than just images, as well as private S3 uploads. However, it currently assumes that you are using Paperclip + Fog for storage, since it calls <tt>expiring_url</tt> on attachments to get expiring urls for private S3 files.
+
+In addition, this version includes formatting instructions for Markdown by default.
 
 == Installation
 
@@ -52,7 +54,7 @@ Configuration options are acessed via <tt>Irwi.config</tt> object. Currently sup
 
 * <tt>formatter</tt> - Formatter instance, which process wiki content before output. It should have method <tt>format</tt>, which gets a string and returns it formatted. By default instance of <tt>Irwi::Formatters::RedCloth</tt> is used (requires RedCloth gem). Other built-in formatter is <tt>Irwi::Formatters::BlueCloth</tt> (requires BlueCloth gem). Option accepts formatter instance, not class, so correct usage is:
 
-  Irwi.config.formatter = Irwi::Formatters::BlueCloth.new
+  Irwi.config.formatter = Irwi::Formatters::RedCarpet.new
 
 * <tt>comparator</tt> - Comparator instance, which builds and renders a set of changes between to texts. By default instance of <tt>Irwi::Comparators::DiffLcs</tt> is used (requires diff-lcs gem).
 
@@ -67,8 +69,21 @@ If you want (and it's good idea) to specify which users can see or edit certain 
 
 Irwi allows easy attachment integration in your wiki. There area several simple steps to add attachments to wiki pages:
 * Call <tt>irwi_wiki_attachments</tt> generator. It will create WikiPageAttachment class.
-* Include <tt>config.gem "paperclip"</tt> in your <tt>environment.rb</tt> or, if you prefer another library modify generated code for it.
-* Append to initializer (or create a new one) something like <tt>Irwi.config.page_attachment_class_name = 'WikiPageAttachment'</tt>.
+* Include <tt>gem "paperclip"</tt> and <tt>gem "fog"</tt> in your <tt>Gemfile</tt>
+* Append to initializer (or create a new one) something like
+
+	Irwi.config.page_attachment_class_name = 'WikiPageAttachment'
+
+	Paperclip::Attachment.default_options[:storage] = :fog
+	Paperclip::Attachment.default_options[:fog_credentials] = {
+		aws_access_key_id: 'AWS ACCESS KEY',
+		aws_secret_access_key: 'AWS SECRET',
+		provider: 'AWS',
+		region: 'us-east-1'
+	}
+	Paperclip::Attachment.default_options[:fog_directory] = "AWS BUCKET"
+	Paperclip::Attachment.default_options[:fog_public] = false
+
 * Run <tt>rake db:migrate</tt> and start using attachments in your wiki!
 
 == Contributors
