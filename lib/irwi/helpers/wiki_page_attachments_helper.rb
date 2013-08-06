@@ -29,6 +29,15 @@ module Irwi::Helpers::WikiPageAttachmentsHelper
         nil
       end
     end
+
+    str = str.gsub /Attachment_([\d]+)_url/ do |m|
+      begin
+        attachment = Irwi.config.page_attachment_class.find($1)
+        attachment.wiki_page_attachment.expiring_url(Time.now + 3600)
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
+    end
   end
 
 end
