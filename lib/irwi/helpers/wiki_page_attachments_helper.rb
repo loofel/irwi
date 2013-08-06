@@ -12,7 +12,7 @@ module Irwi::Helpers::WikiPageAttachmentsHelper
   end
 
   def wiki_show_attachments(str)
-    str.gsub! /Attachment_([\d]+)_([\w]+)/ do |m|
+    str = str.gsub /Attachment_([\d]+)_([\w]+)/ do |m|
       begin
         attachment = Irwi.config.page_attachment_class.find($1)
         link_to(wt($2), attachment.wiki_page_attachment.expiring_url(Time.now + 3600))
@@ -21,7 +21,7 @@ module Irwi::Helpers::WikiPageAttachmentsHelper
       end
     end
 
-    str.gsub! /Attachment!_([\d]+)/ do |m|
+    str = str.gsub /Attachment!_([\d]+)/ do |m|
       begin
         attachment = Irwi.config.page_attachment_class.find($1)
         image_tag attachment.wiki_page_attachment.expiring_url(Time.now + 3600), :class => 'wiki_page_attachment'
